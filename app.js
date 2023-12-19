@@ -1,4 +1,5 @@
 let CommonForWebSocketStart = require("./Projects/KWSServer/EntryFile");
+// let CommonJsonApi = require("./Projects/JsonApi/Routes");
 
 const express = require('express');
 const http = require('http');
@@ -11,6 +12,14 @@ var port = normalizePort(process.env.PORT || '3000');
 app.use('/', express.static(path.join(__dirname, 'public')))
 app.get('/', (req, res) => {
     res.end("home called")
+});
+// app.use('/Routes', CommonJsonApi)
+
+app.post('/Csv', (req, res) => {
+
+    console.log("req:", req.body);
+    res.json(req.body)
+
 });
 
 //app.use("/JSONApi", cors({ origin: '*' }), SubRouteJSONProject);
