@@ -6,6 +6,7 @@ const http = require('http');
 const app = express();
 var path = require('path');
 const server = http.createServer(app);
+app.use(express.json());
 
 var port = normalizePort(process.env.PORT || '3000');
 
@@ -17,8 +18,10 @@ app.get('/', (req, res) => {
 
 app.post('/Csv', (req, res) => {
 
-    console.log("req:", req.body);
-    res.json(req.body)
+    let LocalBodyData = req.body;
+
+    console.log("req:", LocalBodyData);
+    res.json(LocalBodyData)
 
 });
 
