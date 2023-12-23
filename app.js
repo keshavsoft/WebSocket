@@ -1,48 +1,19 @@
-let CommonForWebSocketStart = require("./Projects/KWSServer/EntryFile");
-// let CommonJsonApi = require("./Projects/JsonApi/Routes");
 
-const express = require('express');
-const http = require('http');
-const app = express();
-var path = require('path');
-const server = http.createServer(app);
-app.use(express.json());
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
-var port = normalizePort(process.env.PORT || '3000');
+const express = require('express')
+const app = express()
+const { StartFunc } = import("./klowdb.mjs");
 
-app.use('/', express.static(path.join(__dirname, 'public')))
-app.get('/', (req, res) => {
-    res.end("home called")
-});
-// app.use('/Routes', CommonJsonApi)
-
-app.post('/Csv', (req, res) => {
-
-    let LocalBodyData = req.body;
-
-    console.log("req:", LocalBodyData);
-    res.json(LocalBodyData)
-
+app.get('/', function (req, res) {
+    res.send('Hello World')
 });
 
-//app.use("/JSONApi", cors({ origin: '*' }), SubRouteJSONProject);
-CommonForWebSocketStart(server);
-
-function normalizePort(val) {
-    var port = parseInt(val, 10);
-
-    if (isNaN(port)) {
-        return val;
-    }
-
-    if (port >= 0) {
-        return port;
-    }
-
-    return false;
-};
-
-server.listen(port, () => {
-    console.log("localhost running at port : 3000");
-    console.log("http://localhost:3000");
+app.get('/k1', function (req, res) {
+    console.log("k1 : ", StartFunc);
+    StartFunc().then();
+    res.send('k1')
 });
+
+app.listen(3000)
